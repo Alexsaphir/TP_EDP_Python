@@ -7,7 +7,7 @@ from matplotlib.pyplot import *
 from mpl_toolkits.mplot3d import Axes3D
 
 
-Ns = 50
+Ns = 20
 
 # Maillage
 
@@ -44,28 +44,26 @@ b[Ns*(Ns-1):Ns*Ns] = Ud(Xh)
 A_inv = linalg.inv(A)
 Uh = solve(A_inv, b)
 
-# Rangement des valeurs de Uh
-
-
-Zh = array( Ud(X))
+#Mise en forme de la matrice Zh
+Zh = array( 0*Ud(X))
 for i in arange (0, Ns, 1):
   newrow = Uh[ i*(Ns):i*Ns+Ns]
   newrow =concatenate([[0], newrow, [0]])
   Zh = vstack([newrow, Zh])
-
-Zh = vstack([0.*newrow, Zh])
-
-solex(X, X)
-
-U = array([solex(X, 0)])
-for j in arange(0,Ns+1,1):
-  U = vstack([solex(X, X[j]), U])
+Zh = vstack([Ud(X), Zh])
 
 
-coordX, coordY= np.meshgrid(X, X)
-    
+#Calcul du maillage
+coordX, coordY= np.meshgrid(X, flip(X,0))
+
+#Calcul de la solution exacte sur le maillage
+U = solex(coordX,coordY)
+
+#Calcul de l'erreur
+Err = amax(absolute(U-Zh))
 
 fig = figure()
 ax = Axes3D(fig, azim = 30, elev = 30)
 ax.plot_surface(coordX, coordY, Zh, cmap = cm.jet)
+#ax.plot_surface(coordX, coordY, U, cmap = cm.jet)
 fig.show()
