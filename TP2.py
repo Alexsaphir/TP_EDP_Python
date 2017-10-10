@@ -3,15 +3,16 @@
 from numpy import * # importation du module numpy
 from numpy.linalg import *  # importation du module numpy.linalg
 from numpy.random import *
+from matplotlib.pyplot import *
 from mpl_toolkits.mplot3d import Axes3D
 
 
-Ns = 3
+Ns = 50
 
 # Maillage
 
 h = 1./(Ns + 1)
-X = arange(0,1+h,h)
+X = linspace(0,1,Ns+2)
 Xh = X[1:Ns+1]
 
 # Matrice du système linéaire
@@ -49,9 +50,10 @@ Uh = solve(A_inv, b)
 Zh = array( Ud(X))
 for i in arange (0, Ns, 1):
   newrow = Uh[ i*(Ns):i*Ns+Ns]
-  #concatenate([
+  newrow =concatenate([[0], newrow, [0]])
   Zh = vstack([newrow, Zh])
 
+Zh = vstack([0.*newrow, Zh])
 
 solex(X, X)
 
@@ -60,13 +62,10 @@ for j in arange(0,Ns+1,1):
   U = vstack([solex(X, X[j]), U])
 
 
-coordX = array(X[0:Ns])
-for i in arange(1,Ns,1):
-  coordX = vstack([X[0:Ns] , coordX])
-
-coordY = transpose(coordX)
-
+coordX, coordY= np.meshgrid(X, X)
+    
 
 fig = figure()
 ax = Axes3D(fig, azim = 30, elev = 30)
 ax.plot_surface(coordX, coordY, Zh, cmap = cm.jet)
+fig.show()
