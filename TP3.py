@@ -23,10 +23,11 @@ T = float(input('T = '))
 # Maillage
 
 h = 1./(Ns + 1.)
-X = arange(0,1,h)
-Xh = X[1:Ns+1]
+X = arange(0.,1.,h)
+#X=concatenate([X, [1.]])
+Xh = X[1:Ns+2]
 M = int((T/dt) - 1)
-t = arange(dt,T,dt)
+t = arange(0,T,dt)
 
 # Calcul de la matrice A du système
 
@@ -58,11 +59,19 @@ if (meth == 2):
     Uh[j,:] = dot(Uh[j-1,:],linalg.inv((dt*A + 1)))
 
 # Calcul de la matrice U des solution exact au points du maillage
-    
+#try:  
 U = zeros((M+1,Ns))
 for i in arange (1,Ns+1):
-  U[:,i-1] = solex(i,t)
-
+  try:
+    t = arange(0,T,dt)
+    U[:,i-1] = solex(i,t)
+  except:
+    t = arange(dt,T,dt)
+    U[:,i-1] = solex(i,t)
+#except:
+#  U = zeros((M,Ns))
+#  for i in arange (1,Ns+1):
+#    U[:,i-1] = solex(i,t)
 # Calcul de l'erreur max
 
 Err = amax(absolute(U - Uh))
@@ -72,3 +81,4 @@ Err = amax(absolute(U - Uh))
 plot(linspace(0,1,100),solex(linspace(0,1,100),T), label = 'sol ex')
 plot(Xh, Uh[M,:], label = 'sol approchee')
 show()
+
