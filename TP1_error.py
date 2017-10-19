@@ -108,7 +108,64 @@ def Error_meth(m):
         # Pour faire afficher les labels
         legend()
         savefig('Picture/TP1/f=' + str(m) + 'meth=' + str(meth) + '.png')
-   
+
+def Error_meth_conv(m):
+    ug=0
+
+    for meth in [1,2]:
+        clf()
+        for Ns in [int(1./.1 - 1.), int(1./.01 - 1.), int(1./.001 - 1.)]:
+
+            # Maillage
+            h=1./(Ns+1)
+            X=linspace(0, 1., Ns+2)
+            Xh=linspace(h,1.,Ns+1)
+
+            # Matrice du systeme lineaire :
+            A=-1.*(diag(ones(Ns),1)+diag(ones(Ns),-1))+2.*eye(Ns+1);
+            A[Ns, Ns] = 1
+            A=1./h/h*A
+            # Second membre
+            # b = ... (plus loin, exercice 3)
+            b = f(Xh, m)
+            b[0] = b[0] + (Ns + 1)**2*ug
+            
+            # Transformation de b[Ns] pour prendre en compte u'(1) = 0 (cf TD)
+            if (meth == 2):
+                b[Ns] = b[Ns]/2
+            
+            # Resolution du syteme lineaire
+            Uh = solve(A, b) # ceci calcule Uh solution du systeme AU=b
+
+            # Calcul de la solution exacte aux points d'approximation
+            Uex = solex(Xh, ug, m)
+            # Calcul de l'erreur en norme infini
+            Uerr = abs(Uex - Uh)
+            disp(max(Uerr))
+
+            #Graphes
+            Uh = concatenate((array([ug]),Uh))
+            # on complete le vecteur solution avec la valeur ug en 0
+            # On trace le graphe de la fonction solex sur un maillage fin de 100 points
+            plot(linspace(0,1,100),solex(linspace(0,1,100), ug, m), label = 'sol exacte h='+str(h))
+
+            # et le graphe de la solution approchée obtenue
+
+            plot(X, Uh, label = 'sol approchée')
+            plot(Xh, Uerr, label = 'Erreur en h=' + str(h) + ', MAX :'+str(max(Uerr)))
+
+        # On ajoute les labels sur les axes
+        xlabel('X')
+        ylabel('Y')
+        # Pour faire afficher les labels
+        legend()
+        if (meth == 1):
+            title('d²u(x)/dx²=f(x) Méthode décentrée ordre 1, Etude de la convergence')
+        if (meth == 2):
+            title('d²u(x)/dx²=f(x) Méthode centrée ordre 2, Etude de la convergence')
+        savefig('Picture/TP1/ConvHf=' + str(m) + 'meth=' + str(meth) + '.png')
+
 def ErrorComputeAll():
     for m in range(0,5):
         Error_meth(m)
+        Error_meth_conv(m)
