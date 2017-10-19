@@ -52,7 +52,6 @@ def Cond_graph(N):
     show()
     
 def Error_meth(m):
-    clf()
     Ns=9
     ug=0
 
@@ -67,6 +66,7 @@ def Error_meth(m):
     A=1./h/h*A
 
     for meth in [1,2]:
+        clf()
         # Second membre
         # b = ... (plus loin, exercice 3)
         b = f(Xh, m)
@@ -89,7 +89,7 @@ def Error_meth(m):
         Uh = concatenate((array([ug]),Uh))
         # on complete le vecteur solution avec la valeur ug en 0
         # On trace le graphe de la fonction solex sur un maillage fin de 100 points
-        plot(linspace(0,1,100),solex(linspace(0,1,100), ug, m), label = 'sol ex')
+        plot(linspace(0,1,100),solex(linspace(0,1,100), ug, m), label = 'sol exacte')
 
         # et le graphe de la solution approchée obtenue
         if (meth == 1):
