@@ -92,10 +92,10 @@ def Error_meth(m):
         plot(linspace(0,1,100),solex(linspace(0,1,100), ug, m), label = 'sol ex')
 
         # et le graphe de la solution approchée obtenue
+        if (meth == 1):
+            title('d²u(x)/dx²=f(x) Méthode décentrée ordre 1')
         if (meth == 2):
-            title('d²u(x)/dx²=f(x) Methode decentrée ordre 1')
-        if (meth == 2):
-            title('d²u(x)/dx²=f(x) Methode centrée ordre 2')
+            title('d²u(x)/dx²=f(x) Méthode centrée ordre 2')
             
 
         plot(X, Uh, label = 'sol approchée')
