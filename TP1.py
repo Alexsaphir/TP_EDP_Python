@@ -142,6 +142,7 @@ Uex = solex(Xh, ug, m)
 
 # Calcul de l'erreur en norme infini
 Uerr = abs(Uex - Uh)
+disp(max(Uerr))
 
 #Graphes
 Uh = concatenate((array([ug]),Uh))
@@ -155,12 +156,12 @@ plot(X, Uh, label = 'sol approchee')
 
 plot(Xh, Uerr, label = 'Erreur')
 # On ajoute un titre
-title('...')
+title('d²u(x)/dx²=f(x)')
 
 # On ajoute les labels sur les axes
-xlabel('...')
-ylabel('...')
-legend()
+xlabel('X')
+ylabel('Y')
 
 # Pour faire afficher les labels
+legend()
 show() # Pour afficher la figure
