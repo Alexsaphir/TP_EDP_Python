@@ -93,9 +93,9 @@ def Error_meth(m):
 
         # et le graphe de la solution approchée obtenue
         if (meth == 1):
-            title('d²u(x)/dx²=f(x) Méthode décentrée ordre 1')
+            title('d²u(x)/dx²=f(x) Méthode décentrée ordre 1, f='+str(m))
         if (meth == 2):
-            title('d²u(x)/dx²=f(x) Méthode centrée ordre 2')
+            title('d²u(x)/dx²=f(x) Méthode centrée ordre 2, f='+str(m))
             
 
         plot(X, Uh, label = 'sol approchée')
