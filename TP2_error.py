@@ -68,11 +68,13 @@ def solver(Ns):
     #fig.show()
     return Err
 
-N = 20
-E=zeros(N)
-for i in arange(3, N,1):
-    E[i]=solver(i)
-    plot(i)
-plot(linspace(0,N-1,N),E)
-xscale('log')
-show()
+def Err_Conv(N):
+  E=zeros(N-3)
+  for i in arange(3, N,1):
+      E[i-3]=solver(i)
+  plot(linspace(3,N-1,N-3),E,label='Erreur')
+  xlabel('Nb de points utilsés (log)')
+  ylabel('Erreur max mesurée')
+  title('Equation de Laplace 2D: Etude de la convergence')
+  xscale('log')
+  savefig('Picture/TP2/Erreur.png')
