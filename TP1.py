@@ -71,11 +71,11 @@ def solex(x, ug , m) :
     elif (m == 1) :
         y = -0.5*x**2+x+ug
     elif (m == 2) :
-        y = 0
+        y = -(1/6)*x**3+(1/2)*x+ug
     elif (m == 3 ) :
-        y = 0
+        y = -(1/12)*x**4+(1/3)*x+ug
     elif (m == 4) :
-        y = 0
+        y = sin(2*pi*x)-2*pi*x+ug
     else :
         print('valeur de m indéfinie')
     return y
