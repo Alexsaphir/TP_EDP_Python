@@ -160,9 +160,9 @@ def Error_meth_conv(m):
         # Pour faire afficher les labels
         legend()
         if (meth == 1):
-            title('d²u(x)/dx²=f(x) Méthode décentrée ordre 1, Etude de la convergence')
+            title('d²u(x)/dx²=f(x) Méthode décentrée ordre 1, Etude de la convergence, f='+str(m))
         if (meth == 2):
-            title('d²u(x)/dx²=f(x) Méthode centrée ordre 2, Etude de la convergence')
+            title('d²u(x)/dx²=f(x) Méthode centrée ordre 2, Etude de la convergence, f='+str(m))
         savefig('Picture/TP1/ConvHf=' + str(m) + 'meth=' + str(meth) + '.png')
 
 def ErrorComputeAll():
