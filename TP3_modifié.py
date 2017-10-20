@@ -105,3 +105,6 @@ for dt in arange(0.000018,0.00002,0.0000001):
         
   E[j] = Err
   j = j + 1
+
+plot(X, E, label = 'Erreur')
+show()
