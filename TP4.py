@@ -36,7 +36,7 @@ print("3- schéma de Lax-Friedrichs")
 meth=2
 
 c=-2.
-Ns=100;
+Ns=10;
 dt=.0001
 T=1.
 
@@ -93,7 +93,7 @@ ylabel('Y')
 legend()
 
 for j in arange(1, M+1):  
-    for i in arange(1,Ns-1):
+    for i in arange(1,Ns):
         if(meth == 1):
             Uhn[i] =  Uh[i] - c*CFL*(Uh[i] - Uh[i-1])
         elif(meth == 2):
