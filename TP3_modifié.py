@@ -79,7 +79,7 @@ print("l'erreur max vaut : " , Err)
 plot(Xh, Uh, label = 'sol approchee')
 if (meth == 1):
 	title('Uh(x,T) Methode explicite, T=' + str(T))
-if (meth == 1):
+if (meth == 2):
 	title('Uh(x,T) Methode implicite, T=' + str(T))
 xlabel('x')
 ylabel('Uh(x,T)')
