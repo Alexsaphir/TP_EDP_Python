@@ -32,21 +32,13 @@ print("Choix du schéma pour calcul des U(j): ")
 print("1- schéma décentré à gauche")
 print("2- schéma décentré à droite")
 print("3- schéma de Lax-Friedrichs")
-#meth = int(input('Choix = '))
-meth=2
-
-c=-2.
-Ns=10;
-dt=.0001
-T=1.
-
-
+meth = int(input('Choix = '))
 
 print('Choix de la vitesse de transport c')
-#c = float(input('c = '))
+c = float(input('c = '))
 
 print('Choix du nombre Ns de points interieurs du maillage')
-#Ns = int(input('Ns = '))
+Ns = int(input('Ns = '))
 
 h = 1./(Ns + 1.)
 print('h = ' , h)
@@ -54,14 +46,13 @@ print('h = ' , h)
 
 
 print('Choix du pas dt en temps')
-#dt = float(input('dt = '))
+dt = float(input('dt = '))
 
-dt=h/abs(c)/10
 
 print('c*dt/h* = ' , c*dt/h)
 
 print('Choix du temps final T')
-#T = float(input('T = '))
+T = float(input('T = '))
 
 # Maillage
 
@@ -75,22 +66,25 @@ CFL=dt/h
 
 # init Uh avec la condition T=0
 Uh = U0(Xh)
+
 #array pr T=T+1
 Uhn = zeros(shape(Uh))
+
 # Calcul iteratif des vecteurs U(j) par le schéma choisi
 
 # Erreur,Erreur temporaire
-
 Err = 0
 Errn = 0
-ion()
-#Animation
-line1,  = plot(linspace(0,1,100), solex(linspace(0,1,100),0), label = 'sol exacte')
-line2, = plot(Xh, Uh, label = 'sol approchee')
 
-xlabel('X')
-ylabel('Y')
-legend()
+
+#Animation
+#ion()
+#line1,  = plot(linspace(0,1,100), solex(linspace(0,1,100),0), label = 'sol exacte')
+#line2, = plot(Xh, Uh, label = 'sol approchee')
+
+#xlabel('X')
+#ylabel('Y')
+#legend()
 
 for j in arange(1, M+1):  
     for i in arange(1,Ns):
@@ -106,17 +100,20 @@ for j in arange(1, M+1):
     if (Err < Errn):
       Err = Errn
     #Affichage mise a jour
-    line1.set_ydata(solex(linspace(0,1,100),j*dt*c))
-    line2.set_ydata(Uh)
-    draw()
-    pause(.01)
+    #line1.set_ydata(solex(linspace(0,1,100),j*dt*c))
+    #line2.set_ydata(Uh)
+    #draw()
+    #pause(.01)
     # swap array
     Uh, Uhn = Uhn, Uh
 
 # Tracé du graphe de la fonction Uh(x,T)
 # Tracé du graphe de la fonction U(x,T)
 
-#plot(linspace(0,1,100),solex(linspace(0,1,100),T*c), label = 'sol ex')
-#plot(Xh, Uh, label = 'sol approchee')
-ioff()
+plot(linspace(0,1,100),solex(linspace(0,1,100),T*c), label = 'sol ex')
+plot(Xh, Uh, label = 'sol approchee')
+xlabel('X')
+ylabel('Y')
+legend()
+#ioff()
 show()
