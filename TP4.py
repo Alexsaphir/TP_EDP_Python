@@ -96,7 +96,7 @@ for j in arange(1, M+1):
             Uhn[i] =  .5*(Uh[i-1] + Uh[i+1]) - .5*c*CFL*(Uh[i+1] - Uh[i-1])
     # Evaluation de la solution exacte au temps j*dt
     U=solex(X,j*dt*c)
-    Errn = amax(absolute(U - Uh))
+    Errn = amax(absolute(U - Uhn))
     if (Err < Errn):
       Err = Errn
     #Affichage mise a jour
