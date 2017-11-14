@@ -22,14 +22,14 @@ print('Choix de la vitesse de transport c')
 #c = float(input('c = '))
 c = -2
 
-Ns = 500
+Ns = int(1/.002)
 h = 1./(Ns + 1.)
 
 
 X = linspace(0.,1.,Ns+1)
 Xh = X[0:Ns]
 
-dt = .001
+dt = .00101
 T=1.
 M = int((T/dt) - 1)
 
